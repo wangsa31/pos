@@ -1,5 +1,7 @@
 package utils
 
+import "gorm.io/gorm"
+
 /*
 * Struct for transaction as json form
  */
@@ -35,4 +37,12 @@ type Result struct {
 	Food_Name   string `json:"food_name"`
 	Variant     string `json:"variant"`
 	Qty         int    `json:"qty"`
+}
+
+type Variant struct {
+	Id        string         `json:"id"`
+	Variant   string         `json:"variant"`
+	CreatedAt string         `json:"created_at"`
+	UpdatedAt string         `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 }

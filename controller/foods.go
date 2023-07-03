@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"strconv"
 
 	"github.com/pos/models"
 	"github.com/pos/utils"
@@ -70,13 +71,30 @@ func Food(w http.ResponseWriter, req *http.Request) {
 }
 
 func Variant(w http.ResponseWriter, req *http.Request) {
-	var data []models.Variant
+	var data []utils.Variant
 	if req.Method == http.MethodGet {
 		db := models.Getdatabase().Db
-		db.Find(&models.Variant{}).Scan(&data)
+		db.Find(&data)
 		respones := map[string]interface{}{
 			"data":   data,
 			"status": http.StatusOK,
+		}
+		response_json, _ := json.Marshal(respones)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(response_json)
+	}
+}
+
+func DeleteVariant(w http.ResponseWriter, req *http.Request) {
+	if req.Method == http.MethodDelete {
+		id, _ := strconv.Atoi(req.URL.Query().Get("id"))
+
+		db := models.Getdatabase().Db
+		db.Delete(&models.Variant{}, id)
+		respones := map[string]interface{}{
+			"message": "delete success",
+			"status":  http.StatusOK,
 		}
 		response_json, _ := json.Marshal(respones)
 		w.Header().Set("Content-Type", "application/json")
