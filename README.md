@@ -4,7 +4,7 @@ this simple point of sales project uses the golang programming language this pro
 
 ## Authors
 
-- [@wangsa_31](https://www.github.com/octokatherine)
+- [@wangsa_31](https://github.com/wangsa31)
 
 
 ## Tech Stack
